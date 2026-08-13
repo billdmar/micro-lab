@@ -304,11 +304,10 @@ empirical FDR ≤ α was verified on synthetic families.
 ### D2.5 Figures — script-generated house style
 `src/viz/style.py` + `scripts/make_figures.py` regenerate five showcase PNGs under
 `docs/figures/` from the COMMITTED derived fixtures only (`data/fixtures/*.csv`) — no
-raw data, so they rebuild in CI and anywhere. The style mirrors the sibling repo
-`vol-lab/src/viz/style.py` (the dataviz-skill light-surface palette: categorical slots
+raw data, so they rebuild in CI and anywhere. The house style is a light-surface palette (categorical slots
 `#2a78d6/#eb6834/#1baf7a/#eda100/#e87ba4`, the five tickers pinned to fixed slots so
 color follows the entity, hairline solid grid, frameless legend, bold sans titles, Agg
-backend, fixed dpi 140) so the three portfolio repos read as one system. Figures:
+backend, fixed dpi 140). Figures:
 `01_ofi_horizon_profile`, `02_ofi_linearity` (R²=0.150 fit), `03_recovery_power` (the
 verification differentiator), `04_robustness_heatmap` (the large-tick signature),
 `05_sign_autocorr_decay`. **Determinism:** regeneration is byte-identical (asserted by
