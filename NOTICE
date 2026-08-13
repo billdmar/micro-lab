@@ -1,0 +1,14 @@
+micro-lab
+Copyright (c) 2026 William Mar
+
+This product is licensed under the MIT License (see LICENSE). The MIT License
+covers the micro-lab SOURCE CODE only.
+
+NOTE ON DATA
+------------
+The raw LOBSTER limit-order-book sample data used by this project is NOT part of
+this repository and is NOT redistributed here. It is downloaded at build time by
+scripts/get_data.sh and is subject to LOBSTER's own academic-use terms. Please
+cite LOBSTER (https://lobsterdata.com) if you use the data. See the README and
+docs/DESIGN.md (§D0.1) for attribution and the exact provenance of the sample
+files used.

@@ -1,0 +1,71 @@
+[project]
+name = "micro-lab"
+version = "0.1.0"
+description = "Market-microstructure research platform: LOBSTER book reconstruction, point-in-time features, verified statistics pipeline, and canonical order-flow replication with honest statistics."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "William Mar" }]
+dependencies = [
+    "numpy==2.2.1",
+    "scipy==1.15.1",
+    "pandas==2.2.3",
+    "statsmodels==0.14.4",
+    "scikit-learn==1.6.1",
+    "matplotlib==3.10.0",
+    "hypothesis==6.123.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==8.3.4", "coverage==7.6.10", "ruff==0.9.2"]
+
+[project.urls]
+Repository = "https://github.com/billdmar/micro-lab"
+Homepage = "https://github.com/billdmar/micro-lab"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["src", "config"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+markers = [
+    "slow: marks tests that run on the full raw LOBSTER data (deselect on CI)",
+]
+filterwarnings = [
+    "error::DeprecationWarning",
+    # matplotlib's import path triggers deprecated pyparsing calls (third-party,
+    # not our code); ignore that warning class, keep the strict rule for ours.
+    "ignore::pyparsing.warnings.PyparsingDeprecationWarning",
+]
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+omit = [
+    "src/viz/*",              # plotting code is exercised via figure scripts, not unit coverage
+    "src/studies/g1_gate.py", # real-data evidence/report harness; asserted by the slow
+                              # integration tests (need raw LOBSTER data, deselected in CI)
+    "src/studies/runner.py",  # real-data study runner; its pure helpers are unit-tested and
+                              # the full family run is asserted by slow integration tests
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+exclude_lines = ["pragma: no cover", "if __name__ == .__main__.:", "raise NotImplementedError"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "NPY"]
+ignore = ["E501"]  # line length handled by formatter; long justification strings allowed
+
+[tool.ruff.lint.isort]
+known-first-party = ["src", "config"]

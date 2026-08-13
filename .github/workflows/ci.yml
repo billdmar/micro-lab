@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Ruff lint
+        run: ruff check .
+
+      - name: Ruff format check
+        run: ruff format --check .
+
+      # Tests run ONLY on committed DERIVED fixtures (data/fixtures/), never on
+      # raw LOBSTER files, which are gitignored and not redistributed. The
+      # `slow` marker (full raw-data tests) is deselected here.
+      - name: Tests with coverage
+        run: |
+          coverage run -m pytest -m "not slow"
+          coverage report
+          coverage xml
+
+      - name: Coverage gate (>= 90% on src/)
+        run: |
+          python - <<'PY'
+          import xml.etree.ElementTree as ET
+          rate = float(ET.parse("coverage.xml").getroot().get("line-rate"))
+          pct = round(rate * 100, 2)
+          print(f"line coverage: {pct}%")
+          assert pct >= 90.0, f"coverage {pct}% < 90% gate"
+          PY

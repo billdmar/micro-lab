@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "micro-lab: a verified market-microstructure research platform"
+abstract: >-
+  Reconstructs NASDAQ limit order books from LOBSTER sample data (verified
+  against LOBSTER's reference book by an exact per-event transition invariant)
+  and replicates canonical order-flow results — order-flow imbalance, queue
+  imbalance, trade-sign long memory, and price impact — with HAC-robust
+  confidence intervals, purged walk-forward cross-validation, and
+  false-discovery-rate control. The statistics pipeline is itself verified
+  against a ground-truth-injectable order-flow simulator before touching real
+  data. Descriptive research only; no PnL or tradability claims.
+type: software
+authors:
+  - family-names: Mar
+    given-names: William
+repository-code: "https://github.com/billdmar/micro-lab"
+url: "https://github.com/billdmar/micro-lab"
+license: MIT
+version: "0.1.0"
+date-released: "2026-08-08"
+keywords:
+  - market-microstructure
+  - limit-order-book
+  - order-flow-imbalance
+  - quantitative-finance
+  - reproducible-research
+references:
+  - type: data
+    title: "LOBSTER: Limit Order Book System — the Efficient Reconstructor (NASDAQ sample data)"
+    url: "https://lobsterdata.com"
+    notes: >-
+      Sample data used under LOBSTER's academic-use terms; not redistributed in
+      this repository (downloaded at build time by scripts/get_data.sh).

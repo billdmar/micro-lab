@@ -1,0 +1,28 @@
+HANDOFF.md
+
+# --- raw LOBSTER data: NEVER committed or redistributed (academic-use terms) ---
+# Only small DERIVED fixtures under data/fixtures/ are committed.
+data/raw/
+
+# --- Python ---
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+build/
+dist/
+
+# --- OS / editor ---
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# --- generated figures are committed selectively; scratch output is not ---
+scratch/
+*.log
